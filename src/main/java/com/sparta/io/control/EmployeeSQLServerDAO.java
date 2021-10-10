@@ -2,7 +2,9 @@ package com.sparta.io.control;
 
 import com.sparta.io.model.Employee;
 import com.sparta.io.model.EmployeeDAO;
+import com.sparta.io.model.SQLConnection;
 
+import java.sql.*;
 import java.util.ArrayList;
 
 public class EmployeeSQLServerDAO implements EmployeeDAO {
@@ -13,11 +15,59 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
 
     @Override
     public Employee getEmployee(int id) {
+        try {
+            SQLConnection sqlConnection = SQLConnection.getInstance();
+            Connection connection = sqlConnection.getConnection();
+            Statement statement = connection.createStatement();
+
+            ResultSet rs = statement.executeQuery("SELECT * FROM EMPLOYEES WHERE ID = " + id);
+            System.out.println(
+                    "ID: " + rs.getInt("ID") + ", " +
+                    "Name: " + rs.getString("PREFIX") + " " +
+                            rs.getString("FIRST_NAME") + " " +
+                            rs.getString("MIDDLE_INITIAL") + " " +
+                            rs.getString("LAST_NAME") + ", " +
+                    "Email: " + rs.getString("EMAIL") + ", " +
+                    "DOB: " + rs.getDate("DOB") + ", " +
+                    "DOJ: " + rs.getDate("DOJ") + ", " +
+                    "Salary: " + rs.getInt("SALARY"));
+            rs.close();
+            statement.close();
+            connection.close();
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public void insertEmployee(Employee e) {
+    public void insertEmployee(Employee emp) {
+        try {
+            SQLConnection sqlConnection = SQLConnection.getInstance();
+            Connection connection = sqlConnection.getConnection();
+            PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO EMPLOYEES " +
+                    "(ID, PREFIX, FIRST_NAME, MIDDLE_INITIAL, LAST_NAME, GENDER, EMAIL, DOB, DOJ, SALARY)" +
+                    "VALUES(?,?,?,?,?,?,?,?,?,?)");
+
+            preparedStatement.setInt(1, emp.getId());
+            preparedStatement.setString(2, emp.getPrefix());
+            preparedStatement.setString(3, emp.getFirstName());
+            preparedStatement.setString(4, emp.getMiddleInitial());
+            preparedStatement.setString(5, emp.getLastName());
+            preparedStatement.setString(6, emp.getGender());
+            preparedStatement.setString(7, emp.getEmail());
+            preparedStatement.setDate(8, emp.getDob());
+            preparedStatement.setDate(9, emp.getDoj());
+            preparedStatement.setInt(10, emp.getSalary());
+            preparedStatement.execute();
+            connection.setAutoCommit(false);
+            connection.commit();
+            connection.close();
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
 
     }
 
@@ -27,7 +77,19 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
     }
 
     @Override
-    public void deleteEmployee(Employee e) {
+    public void deleteEmployee(Employee emp) {
+        try {
+            SQLConnection sqlConnection = SQLConnection.getInstance();
+            Connection connection = sqlConnection.getConnection();
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DELETE FROM EMPLOYEES " +
+                    "WHERE ID = " + emp.getId());
+
+            statement.close();
+            connection.close();
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
 
     }
 }

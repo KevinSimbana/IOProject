@@ -10,7 +10,7 @@ public class EmployeeCreator {
         int id = Integer.parseInt(metadata[0]);
         String prefix = metadata[1];
         String firstName = metadata[2];
-        String middleName = metadata[3];
+        String middleInitial = metadata[3];
         String lastName = metadata[4];
         boolean gender = metadata[5].equalsIgnoreCase("m");
         String email = metadata[6];
@@ -18,7 +18,7 @@ public class EmployeeCreator {
         Date doj = DateFormatter.tryDateFormatSql(metadata[8]);
         int salary = Integer.parseInt(metadata[9]);
 
-        return new Employee(id, prefix, firstName, middleName, lastName,
+        return new Employee(id, prefix, firstName, middleInitial, lastName,
                 gender, email, dob, doj, salary);
     }
 }

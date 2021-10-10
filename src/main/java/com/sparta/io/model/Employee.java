@@ -71,6 +71,50 @@ public class Employee {
         this.salary = salary;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public String getPrefix() {
+        return prefix;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public String getMiddleInitial() {
+        return middleInitial;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public String getGender() {
+        if (gender){
+            return "M";
+        } else {
+            return "F";
+        }
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public Date getDob() {
+        return dob;
+    }
+
+    public Date getDoj() {
+        return doj;
+    }
+
+    public int getSalary() {
+        return salary;
+    }
+
     @Override
     public String toString() {
         return "Employee[" +

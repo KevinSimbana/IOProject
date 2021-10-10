@@ -1,8 +1,10 @@
 package com.sparta.io.control;
 
 import com.sparta.io.model.Employee;
+import com.sparta.io.model.SQLConnection;
 
 import java.io.*;
+import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -37,6 +39,50 @@ public class IOMain {
 
         System.out.println("Complete Employee records: " + employeeList.size());
         System.out.println("Special cases Employee records: " + specialEmployeeList.size());
+
+
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:employee.db")) {
+            Statement statement = connection.createStatement();
+            statement.executeUpdate("DROP TABLE IF EXISTS EMPLOYEES; " +
+                    "CREATE TABLE \"EMPLOYEES\" " +
+                    "(\"ID\" INTEGER NOT NULL PRIMARY KEY, " +
+                    "\"PREFIX\" VARCHAR(6) NOT NULL, " +
+                    "\"FIRST_NAME\" VARCHAR(50), " +
+                    "\"MIDDLE_INITIAL\" VARCHAR(1), " +
+                    "\"LAST_NAME\" VARCHAR(100), " +
+                    "\"GENDER\" VARCHAR(1), " +
+                    "\"EMAIL\" VARCHAR(200), " +
+                    "\"DOB\" DATE NOT NULL, " +
+                    "\"DOJ\" DATE NOT NULL, " +
+                    "\"SALARY\" INTEGER)");
+
+
+//            PreparedStatement preparedStatement =
+//                    connection.prepareStatement("INSERT INTO EMPLOYEES " +
+//                            "(ID, PREFIX, FIRST_NAME, MIDDLE_INITIAL, LAST_NAME, GENDER, EMAIL, DOB, DOJ, SALARY)" +
+//                            "VALUES(?,?,?,?,?,?,?,?,?,?)");
+//
+//            for (Employee emp : employeeList) {
+//                preparedStatement.setInt(1, emp.getId());
+//                preparedStatement.setString(2, emp.getPrefix());
+//                preparedStatement.setString(3, emp.getFirstName());
+//                preparedStatement.setString(4, emp.getMiddleInitial());
+//                preparedStatement.setString(5, emp.getLastName());
+//                preparedStatement.setString(6, emp.getGender());
+//                preparedStatement.setString(7, emp.getEmail());
+//                preparedStatement.setDate(8, emp.getDob());
+//                preparedStatement.setDate(9, emp.getDoj());
+//                preparedStatement.setInt(10, emp.getSalary());
+//                preparedStatement.execute();
+//            }
+//            connection.setAutoCommit(false);
+//            connection.commit();
+//
+
+
+        } catch (SQLException sqle) {
+            sqle.printStackTrace();
+        }
 
     }
     //Double-check the validity of the method.
