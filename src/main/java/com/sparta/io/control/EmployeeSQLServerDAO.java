@@ -64,6 +64,7 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
             connection.setAutoCommit(false);
             connection.commit();
             connection.close();
+            System.out.println("Employee added to the database!");
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
@@ -87,6 +88,7 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
 
             statement.close();
             connection.close();
+            System.out.println("Employee deleted from the database!");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
         }

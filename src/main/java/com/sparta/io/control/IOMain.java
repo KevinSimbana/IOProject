@@ -57,27 +57,27 @@ public class IOMain {
                     "\"SALARY\" INTEGER)");
 
 
-//            PreparedStatement preparedStatement =
-//                    connection.prepareStatement("INSERT INTO EMPLOYEES " +
-//                            "(ID, PREFIX, FIRST_NAME, MIDDLE_INITIAL, LAST_NAME, GENDER, EMAIL, DOB, DOJ, SALARY)" +
-//                            "VALUES(?,?,?,?,?,?,?,?,?,?)");
-//
-//            for (Employee emp : employeeList) {
-//                preparedStatement.setInt(1, emp.getId());
-//                preparedStatement.setString(2, emp.getPrefix());
-//                preparedStatement.setString(3, emp.getFirstName());
-//                preparedStatement.setString(4, emp.getMiddleInitial());
-//                preparedStatement.setString(5, emp.getLastName());
-//                preparedStatement.setString(6, emp.getGender());
-//                preparedStatement.setString(7, emp.getEmail());
-//                preparedStatement.setDate(8, emp.getDob());
-//                preparedStatement.setDate(9, emp.getDoj());
-//                preparedStatement.setInt(10, emp.getSalary());
-//                preparedStatement.execute();
-//            }
-//            connection.setAutoCommit(false);
-//            connection.commit();
-//
+            PreparedStatement preparedStatement =
+                    connection.prepareStatement("INSERT INTO EMPLOYEES " +
+                            "(ID, PREFIX, FIRST_NAME, MIDDLE_INITIAL, LAST_NAME, GENDER, EMAIL, DOB, DOJ, SALARY)" +
+                            "VALUES(?,?,?,?,?,?,?,?,?,?)");
+
+            for (Employee emp : employeeList) {
+                preparedStatement.setInt(1, emp.getId());
+                preparedStatement.setString(2, emp.getPrefix());
+                preparedStatement.setString(3, emp.getFirstName());
+                preparedStatement.setString(4, emp.getMiddleInitial());
+                preparedStatement.setString(5, emp.getLastName());
+                preparedStatement.setString(6, emp.getGender());
+                preparedStatement.setString(7, emp.getEmail());
+                preparedStatement.setDate(8, emp.getDob());
+                preparedStatement.setDate(9, emp.getDoj());
+                preparedStatement.setInt(10, emp.getSalary());
+                preparedStatement.execute();
+            }
+            connection.setAutoCommit(false);
+            connection.commit();
+
 
 
         } catch (SQLException sqle) {
