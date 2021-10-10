@@ -2,7 +2,7 @@ package com.sparta.io.control;
 
 import com.sparta.io.model.Employee;
 import com.sparta.io.model.EmployeeDAO;
-import com.sparta.io.model.SQLConnection;
+import com.sparta.io.model.Connector;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,8 +16,8 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
     @Override
     public Employee getEmployee(int id) {
         try {
-            SQLConnection sqlConnection = SQLConnection.getInstance();
-            Connection connection = sqlConnection.getConnection();
+            Connector connector = Connector.getInstance();
+            Connection connection = connector.getConnection();
             Statement statement = connection.createStatement();
 
             ResultSet rs = statement.executeQuery("SELECT * FROM EMPLOYEES WHERE ID = " + id);
@@ -44,8 +44,8 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
     @Override
     public void insertEmployee(Employee emp) {
         try {
-            SQLConnection sqlConnection = SQLConnection.getInstance();
-            Connection connection = sqlConnection.getConnection();
+            Connector connector = Connector.getInstance();
+            Connection connection = connector.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO EMPLOYEES " +
                     "(ID, PREFIX, FIRST_NAME, MIDDLE_INITIAL, LAST_NAME, GENDER, EMAIL, DOB, DOJ, SALARY)" +
                     "VALUES(?,?,?,?,?,?,?,?,?,?)");
@@ -80,8 +80,8 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
     @Override
     public void deleteEmployee(Employee emp) {
         try {
-            SQLConnection sqlConnection = SQLConnection.getInstance();
-            Connection connection = sqlConnection.getConnection();
+            Connector connector = Connector.getInstance();
+            Connection connection = connector.getConnection();
             Statement statement = connection.createStatement();
             statement.executeUpdate("DELETE FROM EMPLOYEES " +
                     "WHERE ID = " + emp.getId());

@@ -4,17 +4,17 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public final class SQLConnection {
-    private static SQLConnection instance;
+public final class Connector {
+    private static Connector instance;
     final String url = "jdbc:sqlite:employee.db";
     private Connection connection = DriverManager.getConnection(url);
 
-    private SQLConnection() throws SQLException {
+    private Connector() throws SQLException {
     }
 
-    public static SQLConnection getInstance() throws SQLException {
+    public static Connector getInstance() throws SQLException {
         if (instance == null) {
-            instance = new SQLConnection();
+            instance = new Connector();
         }
         return instance;
     }

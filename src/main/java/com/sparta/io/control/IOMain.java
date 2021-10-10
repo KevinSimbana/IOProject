@@ -1,17 +1,12 @@
 package com.sparta.io.control;
 
 import com.sparta.io.model.Employee;
-import com.sparta.io.model.SQLConnection;
 
 import java.io.*;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
-
-//TODO: Implement JDBS creation and CRUD to instantiate database.
-//TODO: Setup MySQL root account and build connection against that.
-//TODO: Prepared statements (CRUD).
 
 public class IOMain {
     public static void main(String[] args) {
