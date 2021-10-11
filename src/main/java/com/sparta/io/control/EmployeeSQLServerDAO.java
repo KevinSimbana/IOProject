@@ -3,11 +3,14 @@ package com.sparta.io.control;
 import com.sparta.io.model.Employee;
 import com.sparta.io.model.EmployeeDAO;
 import com.sparta.io.model.Connector;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.ArrayList;
 
 public class EmployeeSQLServerDAO implements EmployeeDAO {
+    private static Logger logger = Logger.getLogger("IO Application");
+
     @Override
     public ArrayList<Employee> getAllEmployees() {
         return null;
@@ -37,6 +40,7 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            logger.error("an error has occurred during a database access");
         }
         return null;
     }
@@ -68,6 +72,7 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            logger.error("an error has occurred during a database access");
         }
 
     }
@@ -91,6 +96,7 @@ public class EmployeeSQLServerDAO implements EmployeeDAO {
             System.out.println("Employee deleted from the database!");
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            logger.error("an error has occurred during a database access");
         }
 
     }

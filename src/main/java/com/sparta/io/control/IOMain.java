@@ -1,19 +1,27 @@
 package com.sparta.io.control;
 
 import com.sparta.io.model.Employee;
+import org.apache.log4j.PropertyConfigurator;
 
 import java.io.*;
 import java.sql.*;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import org.apache.log4j.Logger;
+import org.apache.log4j.PropertyConfigurator;
 
 public class IOMain {
+    private static Logger logger = Logger.getLogger("IO Application");
+
     public static void main(String[] args) {
+        PropertyConfigurator.configure("log4j.properties");
         ArrayList<Employee> employeeList = new ArrayList<>();
         ArrayList<Employee> specialEmployeeList = new ArrayList<>();
 
         //Time for Large record (no threads): 1:25
+        //Time 2 Threads: 1:10
+        //Time 4 Threads: 1:30?
         try (BufferedReader in = new BufferedReader((new FileReader("EmployeeRecordsLarge.csv")))) {
             String line = in.readLine();
             while((line = in.readLine())!= null) {
@@ -29,6 +37,7 @@ public class IOMain {
 
         } catch (IOException | ParseException e) {
             e.printStackTrace();
+            logger.error("Initial attempt to read file has caused an error. File does not exist.");
         }
 
         employeeListDuplicateChecker(employeeList);
@@ -96,6 +105,7 @@ public class IOMain {
                 t4.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();
+                logger.error("an interruption call has stopped a thread");
             }
 
 
@@ -120,6 +130,7 @@ public class IOMain {
 
         } catch (SQLException sqle) {
             sqle.printStackTrace();
+            logger.error("an error has occurred during a database access");
         }
 
     }
